@@ -6,7 +6,7 @@
 
 typedef struct agenda{ //Typedef serve para definir um nome para simplificar, e o nome é definido no final, nesse está contato
     char nome[30]; 
-    char numero[11]; //11 = 47 99999 9999 sem os espaços
+    char numero[12]; //11 = 47 99999 9999 sem os espaços
 }contato;
 
 
@@ -44,9 +44,6 @@ int main(void){
                 break;
             case 'd':
                 break;
-            default:
-                printf("Opcao invalida! Tente novamente. \n");
-                break;
         }
     } while (opcao != 'd');
 
@@ -60,27 +57,29 @@ int main(void){
 
 void addContato(void){
     
-    contato AddContato; //Define estrutura "Nome" e "Numero"
+    contato AddContato; //Define estrutura "Nome" e "Numero", usado la no struct
     FILE *contatos; //Declarar variavel "contatos"
 
-        contatos = fopen("contatos.txt","a");
+    contatos = fopen("contatos.txt","a");
        
-	    if (contatos == NULL) {
-    
+	if (contatos == NULL) {
         printf("Erro ao abrir arquivo.\n");
 		return;
-}
+    }
 
-    printf("Digite o nome do contato:\n ");
-    scanf(" %30s\n", AddContato.nome);
-    fprintf(contatos, "%s\t", AddContato.nome);
+    printf("Digite o nome do contato: ");
+    fgets(AddContato.nome, 30, stdin); //variavel, tamanho maximo, tipo da entrada
+    fflush(stdin);
 
-    printf("Digite o numero do telefone:\n ");
-    scanf(" %11s\n", AddContato.numero);
-    fprintf(contatos, "%s\n", AddContato.numero);
+    printf("Digite o numero do telefone: ");
+    fgets(AddContato.numero, 12, stdin);
+    fflush(stdin);
+
+    fprintf(contatos, "%s%s\n", AddContato.nome, AddContato.numero); //Não precisa do \n para dar um "enter" porque o gets pega o espaço do enter quando a gente escreve
 	
     fclose(contatos);
-    printf("Contato adicionado\n");
+    printf("\nContato adicionado\n");
+    fflush(stdin);
 }
 
 void pesquisarContato(void) {
@@ -109,7 +108,7 @@ void excluirContato(void) {
     }
 
     printf("Digite o nome do contato a ser excluido: ");
-    scanf(" %29s", NomeExcluir);
+    scanf(" %29s", &NomeExcluir);
 
    
     while (fscanf(excluirContato, "%s %s\n", c.nome, c.numero) == 2) {  //Verifica os contatos já salvos e salva no arquivo temporario, exceto o que será excluído.
@@ -124,5 +123,5 @@ void excluirContato(void) {
 	remove("contatos.txt");  // Remover o arquivo original e renomear o arquivo temporário para o original
     rename("temp.txt", "contatos.txt");
     printf("Contato excluido com sucesso.\n");
-
+    fflush(stdin);
 }
