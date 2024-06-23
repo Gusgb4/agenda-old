@@ -107,8 +107,10 @@ void excluirContato(void) {
         return;
     }
 
+
     printf("Digite o nome do contato a ser excluido: ");
-    scanf(" %29s", &NomeExcluir);
+    scanf("%29s", NomeExcluir);
+
 
    
     while (fscanf(excluirContato, "%s %s\n", c.nome, c.numero) == 2) {  //Verifica os contatos já salvos e salva no arquivo temporario, exceto o que será excluído.
