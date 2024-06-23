@@ -83,13 +83,13 @@ void addContato(void){
 }
 
 void pesquisarContato(void) {
-    
- 
+
+
 }
 
 void excluirContato(void) {
 
-   char NomeExcluir[30];
+    char NomeExcluir[30];
     FILE *excluirContato, *Auxiliar;
     contato c;
 
